@@ -79,13 +79,17 @@ const handlers = {
         this.emit('AMAZON.HelpIntent');
     },
     'GetDefinition': function () {
+         request('https://morning-bastion-58963.herokuapp.com/form', function(err, res, body) {  
+//         //         //   this.emit(":tellWithCard", definition, term, definition);
+       });
         var slot = this.event.request.intent.slots.Term.value;
         if (slot) {
             var term = Object.keys(definitions).find(keyFromSlot(slot));
 
             const definition = definitions[term];
             if (definition) {
-                this.emit(":tellWithCard", definition, term, definition);
+                // this.emit(":tellWithCard", definition, term, definition);
+                this.emit(":tell", "Done form has been added");
             } else {
                 this.emit(":tell", "I'm sorry, I don't know the definition of " + slot + ". Please try again.");
             }
@@ -101,8 +105,8 @@ exports.handler = function (event, context, callback) {
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
-var appPort = (process.env.PORT || 3000);
+//var appPort = (process.env.PORT || 3000);
 
-app.listen(appPort, function() {
-    console.log("listening on port " + appPort);
-});
+// app.listen(appPort, function() {
+//     console.log("listening on port " + appPort);
+// });
